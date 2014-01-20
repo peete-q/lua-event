@@ -121,21 +121,21 @@ static int luabufferevent_gc(lua_State* L) {
 	return 0;
 }
 
-static int luabufferevent_get_read(lua_State* L) {
+static int luabufferevent_getreader(lua_State* L) {
 	(void)luabufferevent_get(L, 1);
 	lua_getfenv(L, 1);
 	lua_rawgeti(L, -1, READ_BUFFER_LOCATION);
 	return 1;
 }
 
-static int luabufferevent_get_write(lua_State* L) {
+static int luabufferevent_getwriter(lua_State* L) {
 	(void)luabufferevent_get(L, 1);
 	lua_getfenv(L, 1);
 	lua_rawgeti(L, -1, WRITE_BUFFER_LOCATION);
 	return 1;
 }
 
-static int luabufferevent_set_read_watermarks(lua_State* L) {
+static int luabufferevent_setreadwatermarks(lua_State* L) {
 	int low, high;
 	lua_BufferEvent* ev = luabufferevent_get(L, 1);
 	if(!ev->bev) return 0;
@@ -147,7 +147,7 @@ static int luabufferevent_set_read_watermarks(lua_State* L) {
 	return 0;
 }
 
-static int luabufferevent_set_write_watermarks(lua_State* L) {
+static int luabufferevent_setwritewatermarks(lua_State* L) {
 	int low, high;
 	lua_BufferEvent* ev = luabufferevent_get(L, 1);
 	if(!ev->bev) return 0;
@@ -188,10 +188,10 @@ static int luabufferevent_disable(lua_State* L) {
 }
 
 static luaL_Reg luabufferevent_funcs[] = {
-	{"get_read", luabufferevent_get_read},
-	{"get_write", luabufferevent_get_write},
-	{"set_read_watermarks", luabufferevent_set_read_watermarks},
-	{"set_write_watermarks", luabufferevent_set_write_watermarks},
+	{"getreader", luabufferevent_getreader},
+	{"getwriter", luabufferevent_getwriter},
+	{"setreadwatermarks", luabufferevent_setreadwatermarks},
+	{"setwritewatermarks", luabufferevent_setwritewatermarks},
 	{"settimeout", luabufferevent_settimeout},
 	{"enable", luabufferevent_enable},
 	{"disable", luabufferevent_disable},
